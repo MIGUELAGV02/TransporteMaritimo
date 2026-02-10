@@ -10,10 +10,20 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from config import Config
 from extensions import db
+import secrets
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    
+    # Configuración adicional para archivos
+    app.config['UPLOAD_FOLDER'] = os.path.join(current_dir, 'uploads')
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB
+    app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
+    app.config['SECRET_KEY'] = secrets.token_hex(32)  # Para operaciones de archivos
+    
+    # Crear carpeta de uploads si no existe
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
     # Inicializar extensiones
     CORS(app)

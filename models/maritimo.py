@@ -12,22 +12,30 @@ class Maritimo(db.Model):
     Transporte_Estadias = db.Column(db.Integer, nullable=True)
     Link_naviera = db.Column(db.String(255), nullable=True)
     
-    factura = db.Column(db.String(255), nullable=True)
-    listaempaque = db.Column(db.String(255), nullable=True)
+    factura = db.Column(db.String(255), nullable=True)  # Cambiado de Text a String
+    listaempaque = db.Column(db.String(255), nullable=True)  # Cambiado de Text a String
     
     status = db.Column(db.String(250), nullable=True)
     BL = db.Column(db.String(100), nullable=True)
     Aduanaorigen = db.Column(db.String(45), nullable=True)
     Aduanadestino = db.Column(db.String(45), nullable=True)
-    Pedimento = db.Column(db.String(100), nullable=True)
-    Transporteterrestre = db.Column(db.String(45), nullable=True)
+    Pedimento = db.Column(db.String(255), nullable=True)  # Cambiado de Text a String
+    
+    # Nuevos campos de transporte terrestre
+    EmpresaTransporteTerrestre = db.Column(db.String(245), nullable=True)
+    OperadorTransporteTerrestre = db.Column(db.String(245), nullable=True)
+    PlacasTransporteTerrestre = db.Column(db.String(45), nullable=True)
+    NoEconomicoTransporteTerrestre = db.Column(db.String(45), nullable=True)
+    TipoDeTransporteTerrestre = db.Column(db.String(145), nullable=True)
     
     Barco = db.Column(db.String(45), nullable=True)
     Diasmaritimos = db.Column(db.Integer, nullable=True)
     Diasalmacenajes = db.Column(db.Integer, nullable=True)
-    Diastotales = db.Column(db.Integer, nullable=True)
+    DiasLibres = db.Column(db.Integer, nullable=True)  # Cambiado de Diastotales a DiasLibres
     
-    Fechasalida = db.Column(db.Date, nullable=True)
+    # Campos de fechas actualizados
+    FechaSalidaAlmacen = db.Column(db.Date, nullable=True)  # Cambiado de Fechasalida
+    FechaSalidaBarco = db.Column(db.Date, nullable=True)  # Nuevo campo
     Fechacreacion = db.Column(db.Date, nullable=True, default=datetime.utcnow)
     Paisdestino = db.Column(db.String(45), nullable=True)
     Paisorigen = db.Column(db.String(45), nullable=True)
@@ -58,12 +66,19 @@ class Maritimo(db.Model):
             'Aduanaorigen': self.Aduanaorigen,
             'Aduanadestino': self.Aduanadestino,
             'Pedimento': self.Pedimento,
-            'Transporteterrestre': self.Transporteterrestre,
+            # Nuevos campos de transporte terrestre
+            'EmpresaTransporteTerrestre': self.EmpresaTransporteTerrestre,
+            'OperadorTransporteTerrestre': self.OperadorTransporteTerrestre,
+            'PlacasTransporteTerrestre': self.PlacasTransporteTerrestre,
+            'NoEconomicoTransporteTerrestre': self.NoEconomicoTransporteTerrestre,
+            'TipoDeTransporteTerrestre': self.TipoDeTransporteTerrestre,
             'Barco': self.Barco,
             'Diasmaritimos': self.Diasmaritimos,
             'Diasalmacenajes': self.Diasalmacenajes,
-            'Diastotales': self.Diastotales,
-            'Fechasalida': self.Fechasalida.isoformat() if self.Fechasalida else None,
+            'DiasLibres': self.DiasLibres,  # Cambiado de Diastotales
+            # Campos de fechas actualizados
+            'FechaSalidaAlmacen': self.FechaSalidaAlmacen.isoformat() if self.FechaSalidaAlmacen else None,
+            'FechaSalidaBarco': self.FechaSalidaBarco.isoformat() if self.FechaSalidaBarco else None,
             'Fechacreacion': self.Fechacreacion.isoformat() if self.Fechacreacion else None,
             'Paisdestino': self.Paisdestino,
             'Paisorigen': self.Paisorigen,
